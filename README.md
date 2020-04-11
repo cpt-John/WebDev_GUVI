@@ -2,7 +2,9 @@
 
 # Setup SERVER at backEnd\server_DB_setup.php
 
-# is setup to work with MySQL
+# Developed in XAMPP with Apache server ,PHP and MySQL
+
+# is setup to work with MySQL also writes to a server.json at backEnd\server.json
 
 # Register , Login , View Profile , Edit Details
 
@@ -13,6 +15,8 @@
 # All scripts are in seperate files
 
 # Implements Information Sanitization ,Password verification
+
+# Implements jQuery for DOM manipulation
 
 Problem Statement :
 Create a signup page where a user can register and a login page
