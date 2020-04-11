@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function (event) {
-  document.getElementById("register").addEventListener("click", registerUser);
-  document.getElementById("mainPage").addEventListener("click", reDirLogin);
+  $("#register").click(registerUser);
+  $("#mainPage").click(reDirLogin);
 });
 function getResponse(regObj) {
   let params = `regDetails=${regObj}`;
@@ -28,19 +28,14 @@ function registerUser() {
 }
 function handleResponse(msgObj) {
   if (msgObj.message == "1") {
-    document.getElementById(
-      "messages"
-    ).innerHTML = `success ... redirecting to login`;
-    let nodes = document.getElementById("inputsDiv").getElementsByTagName("*");
-    for (let i = 0; i < nodes.length; i++) {
-      nodes[i].disabled = true;
-    }
+    $("#messages").html("success ... redirecting to login");
+    $("#inputsDiv").empty();
     setTimeout(() => {
       console.log("timed out");
       window.location.href = "login.html";
-    }, 2000);
+    }, 3000);
   } else {
-    document.getElementById("messages").innerHTML = msgObj.message;
+    $("#messages").html(msgObj.message);
   }
 }
 function reDirLogin() {

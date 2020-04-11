@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function (event) {
-  document.getElementById("subButton").addEventListener("click", getResponse);
-  document.getElementById("regButton").addEventListener("click", reDirRegister);
+  $("#subButton").click(getResponse);
+  $("#regButton").click(reDirRegister);
 });
 function getResponse() {
   let params = `email=${getParams().mail}&password=${getParams().pass}`;
@@ -18,14 +18,14 @@ function getResponse() {
   xhr.send(params);
 }
 function getParams() {
-  let mail = document.getElementById("email").value;
-  let pass = document.getElementById("password").value;
+  let mail = $("#email").val();
+  let pass = $("#password").val();
   return { mail: mail, pass: pass };
 }
 
 function logIn(detailObj) {
   if (detailObj.hasOwnProperty("message")) {
-    document.getElementById("messages").innerHTML = detailObj.message;
+    $("#messages").html(detailObj.message);
   } else {
     window.location.href = "profile.html";
   }

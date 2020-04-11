@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function (event) {
   getDetailsResponse();
-  document.getElementById("register").addEventListener("click", registerUser);
-  document.getElementById("profilePg").addEventListener("click", reDirProfile);
+  $("#register").click(registerUser);
+  $("#profilePg").click(reDirProfile);
 });
 
 function getDetailsResponse() {
@@ -45,9 +45,7 @@ function registerUser() {
 }
 function handleResponse(msgObj) {
   if (msgObj.message == "1") {
-    document.getElementById(
-      "messages"
-    ).innerHTML = `success ... redirecting to login`;
+    $("#messages").html("success ... redirecting to login");
     let nodes = document.getElementById("inputsDiv").getElementsByTagName("*");
     for (let i = 0; i < nodes.length; i++) {
       nodes[i].disabled = true;
@@ -57,17 +55,17 @@ function handleResponse(msgObj) {
       window.location.href = "login.html";
     }, 2000);
   } else {
-    document.getElementById("messages").innerHTML = msgObj.message;
+    $("#messages").html(msgObj.message);
   }
 }
 function fillDetails(detailObj) {
   if (detailObj.hasOwnProperty("message")) {
-    document.getElementById("messages").innerHTML = detailObj.message;
+    $("#messages").html(detailObj.message);
   } else {
-    document.getElementById("f_name").value = detailObj.first_name;
-    document.getElementById("l_name").value = detailObj.last_name;
-    document.getElementById("dob").value = detailObj.DOB;
-    document.getElementById("details").value = detailObj.details;
+    $("#f_name").val(detailObj.first_name);
+    $("#l_name").val(detailObj.last_name);
+    $("#dob").val(detailObj.DOB);
+    $("#details").val(detailObj.details);
   }
 }
 function reDirProfile() {

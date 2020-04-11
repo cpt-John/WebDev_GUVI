@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function (event) {
   getResponse();
-  document.getElementById("edit").addEventListener("click", reDirEdit);
-  document.getElementById("logout").addEventListener("click", reDirLogin);
+  $("#edit").click(reDirEdit);
+  $("#logout").click(reDirLogin);
 });
 
 function getResponse() {
@@ -22,13 +22,13 @@ function getResponse() {
 
 function setVals(detailObj) {
   if (detailObj.hasOwnProperty("message")) {
-    document.getElementById("messages").innerHTML = detailObj.message;
+    $("#messages").html(detailObj.message);
   } else {
-    document.getElementById("f_name").innerHTML = detailObj.first_name;
-    document.getElementById("l_name").innerHTML = detailObj.last_name;
-    document.getElementById("dob").innerHTML = detailObj.DOB;
-    document.getElementById("details").innerHTML = detailObj.details;
-    document.getElementById("email").innerHTML = detailObj.email;
+    $("#f_name").html(detailObj.first_name);
+    $("#l_name").html(detailObj.last_name);
+    $("#dob").html(detailObj.DOB);
+    $("#details").html(detailObj.details);
+    $("#email").html(detailObj.email);
   }
 }
 function reDirEdit() {
