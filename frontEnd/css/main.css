@@ -1,0 +1,67 @@
+body,
+html {
+  height: 100%;
+}
+
+.container {
+  /* The image used */
+  background-color: #4daac4;
+  /* Full height */
+  height: 100%;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  text-align: center;
+  padding-top: 5%;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+input {
+  height: 30px;
+  width: 250px;
+  margin: 20px;
+  padding-left: 20px;
+  background-color: #a3a3a3;
+  border-radius: 15px;
+  outline: medium;
+  /* align-content: center; */
+}
+
+button {
+  height: 50px;
+  margin: 5px;
+  font-size: 20pt;
+  cursor: pointer;
+  text-align: center;
+  font-family: monospace;
+  font-weight: bolder;
+  text-decoration: none;
+  outline: medium;
+  color: #006416;
+  background-color: #49c74d;
+  border-radius: 15%;
+  -webkit-box-shadow: 1px 3px #4d4e4d;
+          box-shadow: 1px 3px #4d4e4d;
+}
+
+button:hover {
+  background-color: #3cad40;
+}
+
+button:active {
+  background-color: #44c248;
+  -webkit-box-shadow: 1px 1px #666;
+          box-shadow: 1px 1px #666;
+  -webkit-transform: translateY(4px);
+          transform: translateY(4px);
+}
+
+h1 {
+  font-family: monospace;
+  margin: 10px;
+}
+/*# sourceMappingURL=main.css.map */
