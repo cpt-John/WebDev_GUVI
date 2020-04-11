@@ -14,13 +14,12 @@ if( $_REQUEST["email"] && $_REQUEST["password"] ) {
     die( );
 }
 
-//server connection details
-$servername = "localhost";
-$server_username = "root";
-$server_password = "admin";
 
-//db details
-$dbName="user_acc";
+//server connection details && db details && Create connection
+?>
+<?php include "server_DB_setup.php" ?>
+<?php
+
 
 // Create connection
 $conn = new mysqli($servername, $server_username, $server_password);
