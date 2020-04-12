@@ -8,7 +8,7 @@ $(function () {
     $(this).css("background-color", "rgb(119, 234, 236)");
   });
   $("input").blur(function () {
-    $(this).css("background-color", "rgb(167, 225, 247)");
+    $(this).css("background-color", "white");
   });
 });
 
@@ -53,22 +53,29 @@ function registerUser() {
 function handleResponse(msgObj) {
   $("#messages").show();
   if (msgObj.message == "1") {
-    $("#messages").css({
-      "background-color": "#dfffcc",
-      "border-color": "#63c728",
-      color: "#63c728",
-    });
+    $("#messages").attr(
+      "class",
+      "container-sm alert alert-success alert-dismissible "
+    );
     $("#messages").html("success ... redirecting to login");
     $("#inputsDiv").empty();
     setTimeout(() => {
       window.location.href = "login.html";
     }, 2000);
   } else {
+    $("#messages").attr(
+      "class",
+      "container-sm alert alert-danger alert-dismissible "
+    );
     $("#messages").html(msgObj.message);
   }
 }
 function fillDetails(detailObj) {
   if (detailObj.hasOwnProperty("message")) {
+    $("#messages").attr(
+      "class",
+      "container-sm alert alert-danger alert-dismissible "
+    );
     $("#messages").show();
     $("#messages").html("ERROR : " + detailObj.message);
   } else {

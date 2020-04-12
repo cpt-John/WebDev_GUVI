@@ -3,33 +3,69 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <script
       type="text/javascript"
       src="http://code.jquery.com/jquery-1.7.1.min.js"
     ></script>
     <script type="text/javascript" src="edit.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <title>Document</title>
   </head>
   <body>
-    <div class="container">
-      <div id="inputsDiv">
+    <div class="w-100 h-100 text-center" id="container">
+      <div class="form-group" id="inputsDiv">
+        <br /><br />
         <label>First Name</label><br />
-        <input type="text" id="f_name" /><br />
+        <input
+          class="container-sm form-control margin-bottom"
+          type="text"
+          id="f_name"
+        /><br />
         <label>Last Name</label><br />
-        <input type="text" id="l_name" /><br />
+        <input
+          class="container-sm form-control margin-bottom"
+          type="text"
+          id="l_name"
+        /><br />
         <label>DOB</label><br />
-        <input type="date" id="dob" /><br />
+        <input
+          class="container-sm form-control margin-bottom"
+          type="date"
+          id="dob"
+        /><br />
         <label>About you</label><br />
-        <input type="text" id="details" /><br />
+        <input
+          class="container-sm form-control margin-bottom"
+          type="text"
+          id="details"
+        /><br />
         <label>new password</label><br />
-        <input type="password" id="password" /><br />
+        <input
+          class="container-sm form-control margin-bottom"
+          type="password"
+          id="password"
+        /><br />
         <label>comfirm password</label><br />
-        <input type="password" id="c_password" /><br />
-        <button id="register">Submit</button>
-        <button id="profilePg">BACK</button><br />
+        <input
+          class="container-sm form-control margin-bottom"
+          type="password"
+          id="c_password"
+        /><br /><br />
+        <button class="btn btn-primary btn-lg" id="register">Submit</button>
+        <button class="btn btn-primary btn-lg" id="profilePg">BACK</button
+        ><br /><br />
       </div>
-      <h1 type="text" id="messages"></h1>
+      <h3
+        class="container-sm alert alert-danger alert-dismissible"
+        id="messages"
+      ></h3>
     </div>
   </body>
 </html>

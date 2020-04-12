@@ -9,20 +9,30 @@
       src="http://code.jquery.com/jquery-1.7.1.min.js"
     ></script>
     <script type="text/javascript" src="login.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
     <title>Document</title>
   </head>
   <body>
-    <div class="container">
-      <div>
-        <h1>LOGIN</h1>
-        <input type="email" id="email" /><br />
-        <input type="password" id="password" /><br />
-        <button id="subButton">SUBMIT</button>
+    <div class="w-100 h-100 text-center" id="container">
+      <div class="form-group" id="subcontainer">
+        <br /><br /><br />
+        <h1 class="text-center">LOGIN</h1>
+        <input class="form-group" type="email" id="email" /><br />
+        <input class="form-group" type="password" id="password" /><br />
+        <button class="btn btn-primary btn-lg" id="subButton">SUBMIT</button>
+        <h2>OR</h2>
+        <button class="btn btn-primary btn-lg" id="regButton">REGISTER</button>
+        <br /><br />
+        <h3
+          class="container-sm alert alert-danger alert-dismissible"
+          id="messages"
+        ></h3>
       </div>
-      <br />
-      <h2>OR</h2>
-      <button id="regButton">REGISTER</button><br />
-      <h1 id="messages"></h1>
     </div>
   </body>
 </html>

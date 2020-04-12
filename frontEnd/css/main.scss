@@ -1,25 +1,15 @@
 $colors: (
-  primary: rgb(77, 170, 196),
-  accent: #ffffff,
+  primary: rgb(70, 90, 96),
+  accent: #033391,
 );
 body,
 html {
   height: 100%;
 }
 
-.container {
+#container {
   /* The image used */
   background-color: map-get($colors, primary);
-
-  /* Full height */
-  height: 100%;
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  align-content: center;
-  text-align: center;
   font-family: monospace;
   font-weight: bold;
 }
@@ -32,63 +22,14 @@ input {
   border-radius: 15px;
   outline: medium;
 }
-button {
-  height: 50px;
-  margin: 5px;
-  font-size: 20pt;
-  cursor: pointer;
-  text-align: center;
-  font-family: monospace;
-  font-weight: bolder;
-  text-decoration: none;
-  outline: medium;
-  color: rgb(0, 100, 22);
-  background-color: #49c74d;
-  border-radius: 15%;
-  box-shadow: 1px 3px #4d4e4d;
-}
-button:hover {
-  background-color: #3cad40;
-}
-
-button:active {
-  background-color: #44c248;
-  box-shadow: 1px 1px #666;
-  transform: translateY(4px);
-}
-h1 {
-  font-family: monospace;
-  margin: 10px;
-}
 
 ul {
   font-size: x-large;
   align-self: center;
-  color: green;
   text-decoration: underline;
   text-align: justify;
   margin-left: 30%;
 }
 li {
   margin-top: 20px;
-}
-#messages {
-  width: 300px;
-  border-radius: 30px;
-  border: 5px solid rgb(235, 9, 9);
-  padding: 50px;
-  margin-left: 50%;
-  margin-top: 20px;
-  transform: translateX((-150px-50px-5px));
-}
-#messages {
-  width: 300px;
-  border-radius: 30px;
-  background-color: #ffcfcc;
-  border: 5px solid rgb(235, 9, 9);
-  padding: 50px;
-  margin-left: 50%;
-  margin-top: 20px;
-  transform: translateX((-150px-50px-5px));
-  color: rgb(235, 9, 9);
 }

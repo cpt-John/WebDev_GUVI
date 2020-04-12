@@ -7,7 +7,7 @@ $(() => {
     $(this).css("background-color", "rgb(119, 234, 236)");
   });
   $("input").blur(function () {
-    $(this).css("background-color", "rgb(167, 225, 247)");
+    $(this).css("background-color", "white");
   });
 });
 function getResponse(regObj) {
@@ -36,11 +36,10 @@ function registerUser() {
 function handleResponse(detailObj) {
   if (detailObj.message == "1") {
     $("#messages").show();
-    $("#messages").css({
-      "background-color": "#dfffcc",
-      "border-color": "#63c728",
-      color: "#63c728",
-    });
+    $("#messages").attr(
+      "class",
+      "container-sm alert alert-success alert-dismissible "
+    );
     $("#messages").html("success ... redirecting to login");
     $("#inputsDiv").empty();
     setTimeout(() => {
@@ -48,6 +47,10 @@ function handleResponse(detailObj) {
       window.location.href = "login.html";
     }, 3000);
   } else {
+    $("#messages").attr(
+      "class",
+      "container-sm alert alert-danger alert-dismissible "
+    );
     $("#messages").show();
     $("#messages").html("ERROR : " + detailObj.message);
   }
