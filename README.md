@@ -1,5 +1,7 @@
 # WebDev_GUVI
 
+# ADDED bootstrap
+
 # All statements are prepared sql procedural statements
 
 # All DOM manipulation is done using jQuery
