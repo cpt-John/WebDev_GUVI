@@ -1,5 +1,9 @@
 # WebDev_GUVI
 
+# All statements are prepared sql procedural statements
+
+# All DOM manipulation is done using jQuery
+
 # Setup SERVER at backEnd\server_DB_setup.php
 
 # Developed in XAMPP with Apache server ,PHP and MySQL
@@ -15,8 +19,6 @@
 # All scripts are in seperate files
 
 # Implements Information Sanitization ,Password verification
-
-# Implements jQuery for DOM manipulation
 
 Problem Statement :
 Create a signup page where a user can register and a login page

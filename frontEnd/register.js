@@ -1,6 +1,14 @@
-document.addEventListener("DOMContentLoaded", function (event) {
+$(() => {
+  $("#messages").hide();
   $("#register").click(registerUser);
   $("#mainPage").click(reDirLogin);
+  $("input").focus(function () {
+    $("#messages").hide();
+    $(this).css("background-color", "rgb(119, 234, 236)");
+  });
+  $("input").blur(function () {
+    $(this).css("background-color", "rgb(167, 225, 247)");
+  });
 });
 function getResponse(regObj) {
   let params = `regDetails=${regObj}`;
@@ -19,15 +27,20 @@ function getResponse(regObj) {
 }
 
 function registerUser() {
-  let docDetails = document.getElementsByTagName("input");
   let regDetails = {};
-  for (i = 0; i < docDetails.length; i++) {
-    regDetails[docDetails[i].id] = docDetails[i].value;
-  }
+  $("input").each(function () {
+    regDetails[$(this).attr("id")] = $(this).attr("value");
+  });
   getResponse(JSON.stringify(regDetails));
 }
-function handleResponse(msgObj) {
-  if (msgObj.message == "1") {
+function handleResponse(detailObj) {
+  if (detailObj.message == "1") {
+    $("#messages").show();
+    $("#messages").css({
+      "background-color": "#dfffcc",
+      "border-color": "#63c728",
+      color: "#63c728",
+    });
     $("#messages").html("success ... redirecting to login");
     $("#inputsDiv").empty();
     setTimeout(() => {
@@ -35,7 +48,8 @@ function handleResponse(msgObj) {
       window.location.href = "login.html";
     }, 3000);
   } else {
-    $("#messages").html(msgObj.message);
+    $("#messages").show();
+    $("#messages").html("ERROR : " + detailObj.message);
   }
 }
 function reDirLogin() {

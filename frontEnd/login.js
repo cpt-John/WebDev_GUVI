@@ -1,6 +1,14 @@
-document.addEventListener("DOMContentLoaded", function (event) {
+$(() => {
+  $("#messages").hide();
   $("#subButton").click(getResponse);
   $("#regButton").click(reDirRegister);
+  $("input").focus(function () {
+    $(this).css("background-color", "rgb(119, 234, 236)");
+    $("#messages").hide();
+  });
+  $("input").blur(function () {
+    $(this).css("background-color", "rgb(167, 225, 247)");
+  });
 });
 function getResponse() {
   let params = `email=${getParams().mail}&password=${getParams().pass}`;
@@ -24,10 +32,11 @@ function getParams() {
 }
 
 function logIn(detailObj) {
-  if (detailObj.hasOwnProperty("message")) {
-    $("#messages").html(detailObj.message);
-  } else {
+  if (detailObj.message == "1") {
     window.location.href = "profile.html";
+  } else {
+    $("#messages").show();
+    $("#messages").html("ERROR : " + detailObj.message);
   }
 }
 function reDirRegister() {

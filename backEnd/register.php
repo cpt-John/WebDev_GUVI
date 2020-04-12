@@ -1,50 +1,49 @@
 <?php
 error_reporting(0);
-$responsObj="";
 //login details
 session_start();
 $_SESSION['user_email']= "";
 $_SESSION['user_password']="";
-
-//server connection details && db details && Create connection
 ?>
-<?php include "server_DB_setup.php" ?>
+
+
+<?php 
+//server connection details && db details && Create connection
+include "server_DB_setup.php" ?>
+
+<?php 
+//check server and db connection
+include "check_server_DB.php" ?>
+
+
 <?php
-
-// Check connection
-if (mysqli_connect_errno()) {
-    $responsObj='{"message":"Service not available"}';
-    echo $responsObj;
-    die();
-}
-
-insertToDb($conn,$dbName,validateDetails($_REQUEST["regDetails"]));
+insertToDb($conn,$dbName,validateDetails($conn,$_REQUEST["regDetails"]));
 
 
-function validateDetails($details){
+function validateDetails($conn,$details){
     $jsonObj=json_decode($details,true);
     foreach($jsonObj as $key => $value) {   
         if (!$value){
-            $responsObj='{"message":"Some fields are empty"}';
-            echo $responsObj;
+            echo '{"message":"Some fields are empty"}';
+            mysqli_close($conn);
             die();
         }else{
             $jsonObj[$key]=sanitize_input($value);
         }
     }
     if ($jsonObj["password"]!=$jsonObj["c_password"]){
-        $responsObj='{"message":"passwords dont match"}';
-        echo $responsObj;
+        echo '{"message":"passwords dont match"}';
+        mysqli_close($conn);
         die();
     }
     else if (strlen($jsonObj["password"])<5){
-        $responsObj='{"message":"passwords too short"}';
-        echo $responsObj;
+        echo '{"message":"passwords too short"}';
+        mysqli_close($conn);
         die();
     }
     if (!filter_var($jsonObj["email"], FILTER_VALIDATE_EMAIL)){
-        $responsObj='{"message":"invalid Email"}';
-        echo $responsObj;
+        echo '{"message":"invalid Email"}';
+        mysqli_close($conn);
         die();
     }
     return $jsonObj;
@@ -56,45 +55,45 @@ function sanitize_input($data) {
     return $data;
 }
 function insertToDb($conn,$dbName,$jsonObj){
-    $sql = "select schema_name from information_schema.schemata where schema_name = '$dbName';";
-    $result = mysqli_query($conn,$sql);
-    $resultDict = mysqli_fetch_all($result,MYSQLI_ASSOC);
 
-    if(isset($resultDict[0]["schema_name"])!=$dbName){
-    $responsObj='{"message":"Service not available"}';
-    echo $responsObj;
-    die();
-    }
-    $sql = "USE $dbName";
-    $result = mysqli_query($conn, $sql);
+    ?>
+    <?php 
+    //logout existing user
+    include "logout.php" 
+    ?>
+    <?php
 
+    $register= true;
     //verify existing user
-    $tempMail =$jsonObj['email'];
-    $sql = "SELECT email from users where email='$tempMail'";
-    $result = mysqli_query($conn, $sql);
-    $resultDict = mysqli_fetch_all($result,MYSQLI_ASSOC);
-    if($resultDict){
-        if ($resultDict[0]["email"] == $jsonObj["email"]){
-            $responsObj='{"message":"Email registered already"}';
-            echo $responsObj;
-            die();
-    }}
-    //prepared statement
-    $result = $conn->prepare("INSERT INTO users (first_name, last_name, DOB, email, `password`, details)VALUES (?,?,?,?,?,?)");
-    $result->bind_param("ssssss",$jsonObj['f_name'] ,$jsonObj['l_name'],$jsonObj['dob'],$jsonObj['email'],$jsonObj['password'],$jsonObj['details']);
-    
-    // $fromJson = "'$jsonObj[f_name]' ,'$jsonObj[l_name]','$jsonObj[dob]','$jsonObj[email]','$jsonObj[password]','$jsonObj[details]'";
-    // $sql = "INSERT INTO users (first_name, last_name, DOB, email, `password`, details)VALUES ($fromJson)";
-    // $result = mysqli_query($conn,$sql);
-    if ($result->execute()){
-        $responsObj='{"message":"1"}';
-        echo $responsObj;
-        writeToJSON($conn);
+    $sql ="SELECT email from users where email=?";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt,$sql)){
+        echo '{"message":"failed"}';
     }else{
-        $responsObj='{"message":"0"}';
-        echo $responsObj;
-   }
-   $result->close();
+    mysqli_stmt_bind_param($stmt, "s",$jsonObj['email']);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_assoc($result) ;
+        if ($row){
+            echo'{"message":"Email registered already"}';
+            $register=false;
+        }
+    }
+    mysqli_free_result($result);
+
+    
+    //prepared statement
+    if($register){
+        $result = $conn->prepare("INSERT INTO users (first_name, last_name, DOB, email, `password`, details)VALUES (?,?,?,?,?,?)");
+        $result->bind_param("ssssss",$jsonObj['f_name'] ,$jsonObj['l_name'],$jsonObj['dob'],$jsonObj['email'],$jsonObj['password'],$jsonObj['details']);
+        if ($result->execute()){
+            echo '{"message":"1"}';
+            writeToJSON($conn);
+        }else{
+            echo '{"message":"0"}';
+        }
+        $result->close();
+    }
    mysqli_close($conn);
 }
 function writeToJSON($conn){

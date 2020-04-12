@@ -1,7 +1,15 @@
-document.addEventListener("DOMContentLoaded", function (event) {
+$(function () {
+  $("#messages").hide();
   getDetailsResponse();
   $("#register").click(registerUser);
   $("#profilePg").click(reDirProfile);
+  $("input").focus(function () {
+    $("#messages").hide();
+    $(this).css("background-color", "rgb(119, 234, 236)");
+  });
+  $("input").blur(function () {
+    $(this).css("background-color", "rgb(167, 225, 247)");
+  });
 });
 
 function getDetailsResponse() {
@@ -36,22 +44,23 @@ function getResponse(regObj) {
 }
 
 function registerUser() {
-  let docDetails = document.getElementsByTagName("input");
   let regDetails = {};
-  for (i = 0; i < docDetails.length; i++) {
-    regDetails[docDetails[i].id] = docDetails[i].value;
-  }
+  $("input").each(function () {
+    regDetails[$(this).attr("id")] = $(this).attr("value");
+  });
   getResponse(JSON.stringify(regDetails));
 }
 function handleResponse(msgObj) {
+  $("#messages").show();
   if (msgObj.message == "1") {
+    $("#messages").css({
+      "background-color": "#dfffcc",
+      "border-color": "#63c728",
+      color: "#63c728",
+    });
     $("#messages").html("success ... redirecting to login");
-    let nodes = document.getElementById("inputsDiv").getElementsByTagName("*");
-    for (let i = 0; i < nodes.length; i++) {
-      nodes[i].disabled = true;
-    }
+    $("#inputsDiv").empty();
     setTimeout(() => {
-      console.log("timed out");
       window.location.href = "login.html";
     }, 2000);
   } else {
@@ -60,7 +69,8 @@ function handleResponse(msgObj) {
 }
 function fillDetails(detailObj) {
   if (detailObj.hasOwnProperty("message")) {
-    $("#messages").html(detailObj.message);
+    $("#messages").show();
+    $("#messages").html("ERROR : " + detailObj.message);
   } else {
     $("#f_name").val(detailObj.first_name);
     $("#l_name").val(detailObj.last_name);

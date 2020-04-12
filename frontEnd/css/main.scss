@@ -20,7 +20,6 @@ html {
   background-size: cover;
   align-content: center;
   text-align: center;
-  padding-top: 5%;
   font-family: monospace;
   font-weight: bold;
 }
@@ -29,10 +28,9 @@ input {
   width: 250px;
   margin: 20px;
   padding-left: 20px;
-  background-color: rgb(163, 163, 163);
+  background-color: rgb(167, 225, 247);
   border-radius: 15px;
   outline: medium;
-  /* align-content: center; */
 }
 button {
   height: 50px;
@@ -61,4 +59,36 @@ button:active {
 h1 {
   font-family: monospace;
   margin: 10px;
+}
+
+ul {
+  font-size: x-large;
+  align-self: center;
+  color: green;
+  text-decoration: underline;
+  text-align: justify;
+  margin-left: 30%;
+}
+li {
+  margin-top: 20px;
+}
+#messages {
+  width: 300px;
+  border-radius: 30px;
+  border: 5px solid rgb(235, 9, 9);
+  padding: 50px;
+  margin-left: 50%;
+  margin-top: 20px;
+  transform: translateX((-150px-50px-5px));
+}
+#messages {
+  width: 300px;
+  border-radius: 30px;
+  background-color: #ffcfcc;
+  border: 5px solid rgb(235, 9, 9);
+  padding: 50px;
+  margin-left: 50%;
+  margin-top: 20px;
+  transform: translateX((-150px-50px-5px));
+  color: rgb(235, 9, 9);
 }

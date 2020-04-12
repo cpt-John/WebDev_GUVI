@@ -1,68 +1,41 @@
 <?php
 error_reporting(0);
-$responsObj="";
 session_start();
-
-
-//server connection details && db details && Create connection
 ?>
-<?php include "server_DB_setup.php" ?>
+
+<?php 
+//server connection details && db details && Create connection
+include "server_DB_setup.php" ?>
+
+<?php 
+//check server and db connection
+include "check_server_DB.php" ?>
+
+
 <?php
-
-// Check connection
-if (mysqli_connect_errno()) {
-    $responsObj='{"message":"Service not available"}';
-    echo $responsObj;
-    die();
-}
-
-
-//check db exists
-$sql = "select schema_name from information_schema.schemata where schema_name = '$dbName';";
-$result = mysqli_query($conn,$sql);
-$resultDict = mysqli_fetch_all($result,MYSQLI_ASSOC);
-
-if(isset($resultDict[0]["schema_name"])==$dbName){
-    fetchUserDetails($conn,$dbName);
-}else{
-    $responsObj='{"message":"Service not available"}';
-    echo $responsObj;
-    die();
-}
-
+fetchUserDetails($conn,$dbName);
 
 function fetchUserDetails($conn,$dbName){
-    if(!checkLogin($conn,$dbName)){
-        $responsObj='{"message":"user not logged in"}';
-        echo $responsObj;
+    if(!$_SESSION['user_logged_in']){
+        echo '{"message":"user not logged in"}';
     }
     else{
-            $select_cols = 'first_name,last_name,DOB,email,details';
-            $sql = "SELECT $select_cols from users where email='$_SESSION[user_email]'";
-            $result = mysqli_query($conn, $sql);
-            $resultDict = mysqli_fetch_all($result,MYSQLI_ASSOC);
-            $responsObj = json_encode($resultDict[0]);
+        $sql ="SELECT first_name,last_name,DOB,email,details from users where email= ? ";
+        $stmt = mysqli_stmt_init($conn);
+        if(!mysqli_stmt_prepare($stmt,$sql)){
+            echo '{"message":"failed"}';
+        }else{
+            mysqli_stmt_bind_param($stmt,"s",$_SESSION['user_email']);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            $row = mysqli_fetch_assoc($result) ;
+            $responsObj = json_encode($row);
             echo $responsObj;
         }
-}
-function checkLogin($conn,$dbName){
-    $sql = "USE $dbName";
-    $result = mysqli_query($conn, $sql);
-    $sql = "SELECT email from users where email='$_SESSION[user_email]'";
-    $result = mysqli_query($conn, $sql);
-    $resultDict = mysqli_fetch_all($result,MYSQLI_ASSOC);
-    if (empty($resultDict)){
-        return false;
+        mysqli_free_result($result);
     }
-    $sql = "SELECT password from users where email='$_SESSION[user_email]'";
-    $result = mysqli_query($conn, $sql);
-    $resultDict = mysqli_fetch_all($result,MYSQLI_ASSOC);
-    if ($resultDict[0]["password"] != $_SESSION['user_password']){
-        return false;
-    }
-    return true;
-}
 
+}
 mysqli_close($conn);
 ?>
 

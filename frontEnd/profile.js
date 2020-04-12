@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", function (event) {
+$(function () {
+  $("#messages").hide();
   getResponse();
   $("#edit").click(reDirEdit);
   $("#logout").click(reDirLogin);
@@ -22,13 +23,12 @@ function getResponse() {
 
 function setVals(detailObj) {
   if (detailObj.hasOwnProperty("message")) {
-    $("#messages").html(detailObj.message);
+    $("#messages").show();
+    $("#messages").html("ERROR : " + detailObj.message);
   } else {
-    $("#f_name").html(detailObj.first_name);
-    $("#l_name").html(detailObj.last_name);
-    $("#dob").html(detailObj.DOB);
-    $("#details").html(detailObj.details);
-    $("#email").html(detailObj.email);
+    Object.keys(detailObj).forEach((key) => {
+      $("#userInfo").append(`<li>${key} : ${detailObj[key]}</li>`);
+    });
   }
 }
 function reDirEdit() {
